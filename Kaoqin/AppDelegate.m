@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "ViewController.h"
 
 @interface AppDelegate ()
 
@@ -14,9 +15,36 @@
 
 @implementation AppDelegate
 
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    NSLog(@"%@",url);
+    NSLog(@"%@",sourceApplication);
+    sourceApplication = @"launcher";
+    if ([sourceApplication isEqualToString: @"launcher"]) {
+        _urlParameter = [[url host] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        _urlParameter = [_urlParameter stringByReplacingOccurrencesOfString:@"XXOO" withString:@"/"];
+        NSLog(@"%@", _urlParameter);
+        
+        _sourceApplication = sourceApplication;
+        NSLog(@"_sourceApplication = %@", _sourceApplication);
+        
+        ViewController *viewController = [[ViewController alloc] init];
+        [viewController addFingerTime];
+        //          由navigationController推向我们要推向的view        [
+        //        self.navigationController pushViewController:myView animated:YES];
+//        [self.window.rootViewController presentViewController:viewController animated:true completion:nil];
+    }
+    
+    return YES;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    // 程序运行时 不会有提醒
+    if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]){
+        [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil]];
+    }
+    
     return YES;
 }
 

@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>
 
-
+- (IBAction)fingerTouch:(id)sender;
+- (IBAction)refresh:(id)sender;
+- (void) addFingerTime;
 @end
 

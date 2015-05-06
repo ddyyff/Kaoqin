@@ -12,6 +12,7 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
-
+@property (nonatomic, retain) NSString *urlParameter;
+@property (nonatomic, retain) NSString *sourceApplication;
 @end
 
